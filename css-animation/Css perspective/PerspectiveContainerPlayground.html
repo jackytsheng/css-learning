@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+body{
+margin:0;
+
+}
+
+
+.cube-container{
+    position: relative;
+    height: 500px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.first-row{
+    display:flex;
+}
+.second-row{
+    display:flex;
+}
+.slide-container-y{
+    margin-left:100px;
+    transform:rotateZ(-90deg);
+}
+.slide-container-x{
+    margin-top: 10px;
+    width:250px;
+    margin-left:80px;
+}
+.empty-box{
+    width:300px;
+    height:10px;
+}
+.slide-container{
+    text-align: center;
+}
+
+.side {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 30px;
+    color:#ecfbfc;
+    position: absolute;
+    height:200px;
+    width:200px;
+    background-color: #cd8d7b;
+    opacity: 0.8;
+    border:1px solid black;
+}
+
+.cube{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:300px;
+    width:300px;
+    perspective: 500px;
+    perspective-origin: 50% 50%;
+}
+.left{
+    transform: translateX(-100px) rotateY(-90deg);
+}
+.right{
+    transform: translateX(100px) rotateY(90deg);
+}
+.top{
+    transform: translateY(-100px) rotateX(90deg);
+}
+.bottom{
+    transform: translateY(100px) rotateX(-90deg);
+}
+.back{
+    transform: translateZ(-100px); 
+}
+.front{
+    transform: translateZ(100px);
+    z-index: 1;
+}
+
+
+</style>
+<body>
+    <div class="cube-container">
+<div class="first-row">
+    <div class="cube">
+        <div class="side back"><p>2</p></div>
+        <div class="side front"><p>1</p></div>
+        <div class="side bottom"><p>3</p></div>
+        <div class="side left"><p>4</p></div>
+        <div class="side right"><p>5</p></div>
+        <div class="side top"><p>6</p></div>
+    </div>
+    <div class="slide-container-y slide-container">
+        <h3>Vertical</h3>
+        <input type="range" min="1" max="100" value="50" class="vertical-slider">
+    </div>
+    </div>
+    <div class="second-row">
+    <div class="slide-container-x slide-container">
+        <h3>Horizontal</h3>
+        <input type="range" min="1" max="100" value="50" class="horizontal-slider">
+    </div>
+    <div class="empty-box"></div>
+    </div>
+
+    </div>
+</body>
+<script>
+    const horizontalSlider = document.querySelector(".horizontal-slider");
+    const verticalSlider = document.querySelector(".vertical-slider");
+    const cubePerspective = document.querySelector(".cube");
+
+    horizontalSlider.oninput=()=>{
+        changePerspective();
+    }
+
+    verticalSlider.oninput = () => {
+        changePerspective();
+    }
+    
+    changePerspective = ()=>{
+    cubePerspective.style.perspectiveOrigin=`${100-horizontalSlider.value}% ${verticalSlider.value}%`;
+    }
+
+</script>
+</html> 

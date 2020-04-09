@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipcard</title>
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Noto+Sans+KR&display=swap" rel="stylesheet">
+</head>
+<style>
+
+/* 1. transform children 的可以overwrite parent的么？ 
+2.没有preserved-3d 是不是连translate z都是看不到的me？ */
+
+
+body{
+    font-family: 'Noto Sans KR', sans-serif;
+    margin:0;
+    /* color:white; */
+    display: flex;
+    height:70vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    width:300px;
+    height:300px;
+    /* background-color: grey; */
+    border-radius: 10px;
+}
+
+.card-container{
+    position: relative;
+    transition:2s ease-out;
+    width:300px;
+    height:300px;
+    border-radius: 10px;
+    transform-style: preserve-3d;
+}
+.front,.back{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transform-style: preserve-3d;
+    background-color:#cff1ef;
+    backface-visibility: hidden;
+}
+
+.front{
+    /* background-color:blue; */
+    position: absolute;
+    width:300px;
+    height:300px;
+    /* 稍微rotate一下就会在3Dspace 被挡住 */   
+    transform: rotateY(0deg);
+}
+
+.front span{
+    display:block;
+    position: absolute;
+    height:280px;
+    width:280px;
+    border-radius: 10px;
+    border-color: #cd8d7b;
+    border-style: solid;
+    border-width: 3px;
+    transform: translateZ(30px);
+
+}
+.front h2{
+    font-size: 40px;
+    color: #cd8d7b;
+    /* 这个是relative to 我们的front 没有问题 */
+    transform: translateZ(100px);
+}
+.front p{
+    color: #cd8d7b;
+    font-size: 20px;
+    transform: translateZ(50px);
+
+}
+/* 还能这样连动的 */
+.container:hover .card-container{
+    transform:rotateY(180deg);
+}  
+.back{
+    position: absolute;
+    background-color: #ecdfc8;
+    justify-content:right;
+    width:300px;
+    height:300px;
+    border-color: #6e5773;
+    border-style: solid;
+    transform: rotateY(180deg);
+}
+.back h2{
+    font-size: 40px;
+    transform: translateZ(100px);
+}
+
+.back p{
+    font-family: 'Indie Flower', cursive;
+    font-size: 30px;
+    color: #6e5773;
+    transform: translateZ(30px);
+}
+
+.back img{
+    /* transform: translateZ(10px); */
+    width:250px;
+    border-radius: 10px;
+}
+
+
+
+</style>
+<body>
+    <div class="container">
+        <div class="card-container">
+            <!-- back content got render first -->
+            <div class="back">
+                <p>From 2016.12.29</p>
+                <img src="img/IMG_4755.JPG" alt="">
+            </div>
+            <div class="front"> 
+                <span class="border"></span><h2>Jacky & Cindy</h2><p>Our Story</p></div>
+        </div>
+    </div>
+</body>
+</html>
