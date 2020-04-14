@@ -1,0 +1,179 @@
+
+$timeStep:0.5s;
+$firstColor:#856c8b;
+$secondColor:#d4ebd0;
+$thirdColor:#ffeb99;
+$fourthColor:#a4c5c6;
+
+
+@mixin squarebox {
+    width:200px;
+    height:200px;
+}
+
+.canvas{
+    width:100%;    
+    height:60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .box__container{
+        width:400px;
+        height:400px;
+        position: relative;
+        perspective: 2000px;
+        perspective-origin: bottom;
+
+        &:hover {
+            .box__container__square-first{
+                animation: flipping-first $timeStep forwards;
+                animation-timing-function: linear;
+            }
+            .box__container__square-second {
+                animation: flipping-second $timeStep forwards $timeStep;
+                animation-timing-function: linear;
+            }
+            .box__container__square-third {
+                animation: flipping-third $timeStep forwards 2*$timeStep;
+                animation-timing-function: linear;
+            }
+            .box__container__square-fourth {
+                animation: flipping-fourth $timeStep forwards 3*$timeStep;
+                animation-timing-function: linear;
+            }
+        }
+        &__square{
+            @include squarebox();
+        }
+        &__square-first{
+            position: absolute;
+            background-color:$firstColor;
+        }
+        &__square-second{
+            visibility: hidden;
+            position: absolute;
+            left:50%;
+            background-color: $secondColor;
+        }
+        &__square-third {
+            position: absolute;
+            visibility: hidden;
+            top:50%;
+            left:50%;
+            background-color: $thirdColor;
+        }
+        &__square-fourth {
+            position: absolute;
+            visibility: hidden;
+            top:50%;
+            background-color: $fourthColor;
+        }
+    }
+}
+
+@keyframes flipping-first{
+    0% {
+        transform-origin: right;
+        transform: rotateY(0deg);
+        background-color: $firstColor;
+    }
+    49%{
+        transform-origin: right;
+        transform: rotateY(90deg);
+        background-color: $firstColor
+    }
+    50%{
+        transform-origin: right;
+        transform: rotateY(90deg);
+        background-color: $secondColor;
+    }
+    100%{
+        transform-origin: right;
+         background-color: $secondColor;
+        transform: rotateY(180deg);
+        visibility:hidden;
+    }
+}
+@keyframes flipping-second {
+    0% {
+        visibility: visible;
+        transform-origin: bottom;
+        transform: rotateX(0deg);
+        background-color: $secondColor;
+    }
+    49% {
+        visibility: visible;
+        transform-origin: bottom;
+        transform: rotateX(90deg);
+        background-color: $secondColor;
+    }
+    50% {
+        visibility: visible;
+        transform-origin: bottom;
+        transform: rotateX(90deg);
+        background-color: $thirdColor;
+    }
+
+    100% {
+        transform-origin: bottom;
+        transform: rotateX(180deg);
+        background-color: $thirdColor;
+    }
+}
+@keyframes flipping-third {
+    0% {
+        visibility: visible;
+        transform-origin: left;
+        transform: rotateY(0deg);
+        background-color: $thirdColor;
+    }
+
+    49% {
+        visibility: visible;
+        transform-origin: left;
+        transform: rotateY(-90deg);
+        background-color: $thirdColor;
+    }
+
+    50% {
+       visibility: visible;
+       transform-origin: left;
+       transform: rotateY(-90deg);
+       background-color: $fourthColor;
+    }
+
+    100% {
+       transform-origin: left;
+       transform: rotateY(-180deg);
+       background-color: $fourthColor;
+       }
+    }
+
+@keyframes flipping-fourth {
+    0% {
+        visibility: visible;
+        transform-origin: top;
+        transform: rotateX(0deg);
+        background-color: $fourthColor;
+    }
+
+    49% {
+        visibility: visible;
+        transform-origin: top;
+        transform: rotateX(-90deg);
+        background-color: $fourthColor;
+    }
+
+    50% {
+        visibility: visible;
+        transform-origin: top;
+        transform: rotateX(-90deg);
+        background-color: $firstColor;
+    }
+    100% {
+        visibility: visible;
+        transform-origin: top;
+        transform: rotateX(-180deg);
+        background-color: $firstColor;
+    }
+}
